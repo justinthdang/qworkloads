@@ -5,7 +5,7 @@ All core functionality, architecture, and simulation logic of this repository wa
 
 This cloned repository simply fixes some missing headers, reorganizes the C++ files into a src folder, and provides clear instructions on how to get the tool up and running.
 
-If you use this tool in academic work, please consider citing the original authors and publications associated with QComm.
+If you use this tool in academic work, please consider citing the original authors and publications associated with Qcomm.
 
 ## Rebuilding Simulator
 To rebuild the simulator, navigate to the project directory and execute the following:
@@ -15,7 +15,7 @@ To rebuild the simulator, navigate to the project directory and execute the foll
 ## Customizing the Circuit, Architecture, and Parameters
 A list of inputs for the circuit, architecture, and parameters text files can be found under section III of [this paper](https://arxiv.org/pdf/2405.16275).
 
-An example can be found in the "samples" folder within the project directory.
+Examples can be found in the "samples" folder under the project directory.
 
 ## Running the Simulator
 To run the simulator, navigate to the project directory and execute the following:
