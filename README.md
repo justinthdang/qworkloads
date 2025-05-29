@@ -13,13 +13,16 @@ To rebuild the simulator, navigate to the project directory and execute the foll
 #### `make`
 
 ## Customizing the Circuit, Architecture, and Parameters
-A list of inputs for the circuit, architecture, and parameters text files can be found under section III of [this paper](https://arxiv.org/pdf/2405.16275).
+To generate a random circuit (optional), navigate to the project directory and execute the following:
+#### `./rcg <n-qubits> <n-gates> <probability-1-qubit-gateprobability-2-qubit-gate ... probability-n-qubit-gate>`
+
+A list of inputs for the architecture and parameters text files can be found under section III of [this paper](https://arxiv.org/pdf/2405.16275).
 
 Examples can be found in the "samples" folder under the project directory.
 
 ## Running the Simulator
 To run the simulator, navigate to the project directory and execute the following:
-#### `./qcomm -c samples/circuit.txt -a samples/architecture.txt -p samples/parameters.txt`
+#### `./qcomm -c <path to circuit text file> -a <path to architecture text file> -p <path to parameters text file>`
 
 ## Citations
 Maurizio Palesi, Enrico Russo, Davide Patti, Giuseppe Ascia, and Vincenzo Catania, "_Assessing the Role of Communication in Scalable Multi-Core Quantum Architectures_," in _2024 IEEE 17th International Symposium on Embedded Multicore/Many-core Systems-on-Chip (MCSoC)_, Kuala Lumpur, Malaysia, 2024, pp. 482-489, doi: 10.1109/MCSoC64144.2024.00085.
