@@ -1,7 +1,18 @@
 # How to Use Qcomm
+<<<<<<< Updated upstream
 Qcomm is a C++ simulation framework for quantum circuit communication and mapping. It reads a quantum circuit, architecture configuration, and simulation parameters, and runs a simulation to collect statistics.
 
 All core functionality, architecture, and simulation logic of this repository was created by the original authors of Qcomm. The original repository can be found [here](https://github.com/mpalesi/qcomm).
+=======
+The original Qcomm simulation tool can be found here: https://github.com/mpalesi/qcomm
+
+## About
+Qcomm is a simulation tool designed to assess the impact
+of communication on the performance of scalable multi-core
+quantum architectures. Qcomm allows users to adjust various
+architectural and physical parameters of the system, and outputs
+various communication metrics.
+>>>>>>> Stashed changes
 
 This cloned repository simply fixes some missing headers, reorganizes the C++ files into a src folder, and provides clear instructions on how to get the tool up and running.
 
@@ -17,7 +28,7 @@ A list of inputs for the circuit, architecture, and parameters text files can be
 
 ## Running the Simulator
 To run the simulator, navigate to the project directory "qcomm" and execute the following:
-#### `./qcomm -c circuit.txt -a architecture.txt -p parameters.txt`
+#### `./qcomm -c samples/circuit.txt -a samples/architecture.txt -p samples/parameters.txt`
 
 ## Citations
 Maurizio Palesi, Enrico Russo, Davide Patti, Giuseppe Ascia, and Vincenzo Catania, "_Assessing the Role of Communication in Scalable Multi-Core Quantum Architectures_," in _2024 IEEE 17th International Symposium on Embedded Multicore/Many-core Systems-on-Chip (MCSoC)_, Kuala Lumpur, Malaysia, 2024, pp. 482-489, doi: 10.1109/MCSoC64144.2024.00085.
