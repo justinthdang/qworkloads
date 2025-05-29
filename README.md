@@ -1,33 +1,24 @@
 # How to Use Qcomm
-<<<<<<< Updated upstream
 Qcomm is a C++ simulation framework for quantum circuit communication and mapping. It reads a quantum circuit, architecture configuration, and simulation parameters, and runs a simulation to collect statistics.
 
 All core functionality, architecture, and simulation logic of this repository was created by the original authors of Qcomm. The original repository can be found [here](https://github.com/mpalesi/qcomm).
-=======
-The original Qcomm simulation tool can be found here: https://github.com/mpalesi/qcomm
-
-## About
-Qcomm is a simulation tool designed to assess the impact
-of communication on the performance of scalable multi-core
-quantum architectures. Qcomm allows users to adjust various
-architectural and physical parameters of the system, and outputs
-various communication metrics.
->>>>>>> Stashed changes
 
 This cloned repository simply fixes some missing headers, reorganizes the C++ files into a src folder, and provides clear instructions on how to get the tool up and running.
 
 If you use this tool in academic work, please consider citing the original authors and publications associated with QComm.
 
 ## Rebuilding Simulator
-To rebuild the simulator, navigate to the project directory "qcomm" and execute the following:
+To rebuild the simulator, navigate to the project directory and execute the following:
 #### `make clean`
 #### `make`
 
 ## Customizing the Circuit, Architecture, and Parameters
 A list of inputs for the circuit, architecture, and parameters text files can be found under section III of [this paper](https://arxiv.org/pdf/2405.16275).
 
+An example can be found in the "samples" folder within the project directory.
+
 ## Running the Simulator
-To run the simulator, navigate to the project directory "qcomm" and execute the following:
+To run the simulator, navigate to the project directory and execute the following:
 #### `./qcomm -c samples/circuit.txt -a samples/architecture.txt -p samples/parameters.txt`
 
 ## Citations
