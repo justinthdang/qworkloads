@@ -1,18 +1,23 @@
-# Qcomm
+# How to Use Qcomm
+Qcomm is a C++ simulation framework for quantum circuit communication and mapping. It reads a quantum circuit, architecture configuration, and simulation parameters, and runs a simulation to collect statistics.
 
-## About
-Welcome to Qcomm, a simulation tool designed to assess the impact
-of communication on the performance of scalable multi-core
-quantum architectures. Qcomm allows users to adjust various
-architectural and physical parameters of the system, and outputs
-various communication metrics.
+All core functionality, architecture, and simulation logic of this repository was created by the original authors of Qcomm. The original repository can be found [here](https://github.com/mpalesi/qcomm).
 
-## Publications
-We introduced the first version of Qcomm and used it to conduct a preliminary study on how various parameters influence communication performance in a multi-core quantum system. The results of this study were presented in the following publication:
+This cloned repository simply fixes some missing headers, reorganizes the C++ files into a src folder, and provides clear instructions on how to get the tool up and running.
 
+If you use this tool in academic work, please consider citing the original authors and publications associated with QComm.
+
+## Rebuilding Simulator
+To rebuild the simulator, navigate to the project directory "qcomm" and execute the following:
+#### `make clean`
+#### `make`
+
+## Customizing the Circuit, Architecture, and Parameters
+A list of inputs for the circuit, architecture, and parameters text files can be found under section III of [this paper](https://arxiv.org/pdf/2405.16275).
+
+## Running the Simulator
+To run the simulator, navigate to the project directory "qcomm" and execute the following:
+#### `./qcomm -c circuit.txt -a architecture.txt -p parameters.txt`
+
+## Citations
 Maurizio Palesi, Enrico Russo, Davide Patti, Giuseppe Ascia, and Vincenzo Catania, "_Assessing the Role of Communication in Scalable Multi-Core Quantum Architectures_," in _2024 IEEE 17th International Symposium on Embedded Multicore/Many-core Systems-on-Chip (MCSoC)_, Kuala Lumpur, Malaysia, 2024, pp. 482-489, doi: 10.1109/MCSoC64144.2024.00085.
-
-If you use Qcomm in your research, we kindly ask you to cite the above publication in any related work.
-
-## Installation and Quick Start
-TODO
