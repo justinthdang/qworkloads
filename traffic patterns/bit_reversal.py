@@ -17,12 +17,17 @@ def getUserInput():
             print(f"{n}-qubit gate probability must be less between or equal to 0 and 1.")
             return
         
+        if total_prob > 1:
+            print("Total probability must be 0 or 1.")
+            return
+        
         probabilities.append(n_qubit_gate_prob) # add probability to list
 
-    return(probabilities)
+    return(number_of_qubits, number_of_gates,probabilities) # returns tuple
 
 def main():
-    return getUserInput()
+    user_input = getUserInput()
+    print(user_input)
 
 if __name__ == "__main__":
     main()
