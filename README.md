@@ -14,7 +14,7 @@ To rebuild the simulator, navigate to the project directory and execute the foll
 
 ## Customizing the Circuit, Architecture, and Parameters
 To generate a random circuit (optional), navigate to the project directory and execute the following:
-#### `./rcg <n-qubits> <n-gates> <probability-1-qubit-gateprobability-2-qubit-gate ... probability-n-qubit-gate>`
+#### `./rcg <l-qubits> <m-gates> <1-qubit-gate-probability 2-qubit-gate-probability ... n-qubit-gate-probability>`
 
 A list of inputs for the architecture and parameters text files can be found under section III of [this paper](https://arxiv.org/pdf/2405.16275).
 
