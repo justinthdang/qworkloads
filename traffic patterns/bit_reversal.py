@@ -1,3 +1,5 @@
+import random
+
 # take user input for qubits, gates, probabilities
 def getUserInput():
     number_of_qubits = int(input("Number of qubits: "))
@@ -27,9 +29,30 @@ def getUserInput():
 
     return(number_of_qubits, number_of_gates,probabilities) # returns tuple
 
-def main():
+def bitReverse(i):
+    j = "" # initialize reversed string
+    original = bin(i).replace("0b", "") # convert decimal to binary
+    # iterate through digits in reverse and add to reversed string
+    for digit in reversed(original):
+        j += digit
+    reverse = int(j, 2) # convert binary to decimal
+    return reverse
+
+def generator():
     user_input = getUserInput()
-    print(user_input)
+    n_qubits = user_input[0]
+    n_gates = user_input[1]
+    probs = user_input[2]
+    
+    # n-qubits are 0, 1, 2 ... qubit states available, these could repeat so this determines when a slice ends
+    # n-gates are 0-, 1-, 2- ... qubit gates available, this will be the determining factor of when the amount of slices end
+    random.randrange(0, )
+
+def main():
+    # user_input = getUserInput()
+    # print(user_input)
+    tingamus = bitReverse(8)
+    print(tingamus)
 
 if __name__ == "__main__":
     main()
