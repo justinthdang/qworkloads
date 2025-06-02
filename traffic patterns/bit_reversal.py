@@ -53,27 +53,57 @@ def intToList(i):
         my_list.append(number)
     return my_list
 
+
 def generator():
     user_input = getUserInput()
-    n_cores = user_input[0]
+    cores = user_input[0]
     qpc = user_input[1]
-    n_qubits = user_input[2]
-    n_gates = user_input[3]
+    qubits = user_input[2]
+    gates = user_input[3]
     probs = user_input[4]
 
-    # convert number of gates to list of integers
-    gate_list = intToList(n_gates)
+    # convert number of gates to list of n-gates
+    gate_list = intToList(len(probs))
+
+    # list of 1, 2 ... n-qubit gates; probability of each; size of final list which totals to the amount of gates
+    random_size_gate_list = random.choice(gate_list, p = probs, size = (gates)).tolist()
+
+    with open("samples/test_circuit.txt", "w") as test_circuit:
+        qubit_tracker = [] # tracks qubits used in general
+
+        for gate in random_size_gate_list:
+            string = "("
+
+            random_qubit_tracker = [] # tracks qubits within a gate
+
+            # generates random qubit within specified size of gate
+            for i in range(1, gate + 1):
+                def rng(n, qrand, q):
+                    # makes sure all numbers within a single gate are random
+                    while True:
+                        number = str(random.randint(n))
+                        if number not in qrand:
+                            qrand.append(number)
+                            q.append(number)
+                            return number
+            
+                # generate qubit and add to gate
+                generated_qubit = rng(qubits, random_qubit_tracker, qubit_tracker)
+                string += f"{generated_qubit} "
+
+            string = string[:-1] + ")"
+
+            test_circuit.write(string)
 
 
-    
-    x = random.choice(gate_list, p = probs, size = (n_gates))
-    
+        
 
 def main():
-    user_input = getUserInput()
-    print(user_input)
+    # user_input = getUserInput()
+    # print(user_input)
     # tingamus = bitReverse(8)
     # print(tingamus)
+    generator()
 
 if __name__ == "__main__":
     main()
