@@ -69,12 +69,12 @@ def generator():
     random_size_gate_list = random.choice(gate_list, p = probs, size = (gates)).tolist()
 
     with open("samples/test_circuit.txt", "w") as test_circuit:
-        qubit_tracker = [] # tracks qubits used in general
+        current_slice = [] # tracks qubits used in current time slice
 
         for gate in random_size_gate_list:
             string = "("
 
-            random_qubit_tracker = [] # tracks qubits within a gate
+            track_gate = [] # tracks qubits within a gate
 
             # generates random qubit within specified size of gate
             for i in range(1, gate + 1):
@@ -88,14 +88,23 @@ def generator():
                             return number
             
                 # generate qubit and add to gate
-                generated_qubit = rng(qubits, random_qubit_tracker, qubit_tracker)
+                generated_qubit = rng(qubits, track_gate, current_slice)
                 string += f"{generated_qubit} "
 
             string = string[:-1] + ")"
 
+            # check if any numbers have been repeated
+            repeating = [element for element in set(current_slice) if current_slice.count(element) > 1]
+
+            # if a qubit is repeated then create a new line before the current gate
+            if repeating:
+                index = string.rfind("(")
+                string = string[:index] + "\n(" + string[index + 1:]
+
+                # reset qubit tracker and current slice
+                current_slice = []
+
             test_circuit.write(string)
-
-
         
 
 def main():
