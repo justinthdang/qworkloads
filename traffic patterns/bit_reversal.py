@@ -1,8 +1,17 @@
-import random
+from numpy import random
 
 # take user input for qubits, gates, probabilities
 def getUserInput():
-    number_of_qubits = int(input("Number of qubits: "))
+    # read and extract parameters from architecture.txt
+    arch = open("samples/architecture.txt", "r")
+    read_arch = arch.readlines()
+    print(read_arch)
+    mesh_x = read_arch[0].strip("mesh_x ")
+    mesh_y = read_arch[1].strip("mesh_y ")
+
+    number_of_cores = int(mesh_x) * int(mesh_y)
+    qubits_per_core = int(read_arch[3].strip("qubits_per_core "))
+    number_of_qubits = qubits_per_core * number_of_cores
     number_of_gates = int(input("Number of gates: "))
 
     probabilities = [] # initialize list for storing probabilities
@@ -27,7 +36,7 @@ def getUserInput():
         
         probabilities.append(n_qubit_gate_prob) # add probability to list
 
-    return(number_of_qubits, number_of_gates,probabilities) # returns tuple
+    return(number_of_cores, qubits_per_core, number_of_qubits, number_of_gates, probabilities) # returns tuple
 
 def bitReverse(i):
     j = "" # initialize reversed string
@@ -38,21 +47,33 @@ def bitReverse(i):
     reverse = int(j, 2) # convert binary to decimal
     return reverse
 
+def intToList(i):
+    my_list = []
+    for number in range(1, i + 1):
+        my_list.append(number)
+    return my_list
+
 def generator():
     user_input = getUserInput()
-    n_qubits = user_input[0]
-    n_gates = user_input[1]
-    probs = user_input[2]
+    n_cores = user_input[0]
+    qpc = user_input[1]
+    n_qubits = user_input[2]
+    n_gates = user_input[3]
+    probs = user_input[4]
+
+    # convert number of gates to list of integers
+    gate_list = intToList(n_gates)
+
+
     
-    # n-qubits are 0, 1, 2 ... qubit states available, these could repeat so this determines when a slice ends
-    # n-gates are 0-, 1-, 2- ... qubit gates available, this will be the determining factor of when the amount of slices end
-    random.randrange(0, )
+    x = random.choice(gate_list, p = probs, size = (n_gates))
+    
 
 def main():
-    # user_input = getUserInput()
-    # print(user_input)
-    tingamus = bitReverse(8)
-    print(tingamus)
+    user_input = getUserInput()
+    print(user_input)
+    # tingamus = bitReverse(8)
+    # print(tingamus)
 
 if __name__ == "__main__":
     main()
