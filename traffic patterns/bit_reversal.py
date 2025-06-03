@@ -1,3 +1,5 @@
+import numpy as np
+import math as m
 from numpy import random
 
 # take user input for qubits, gates, probabilities
@@ -38,9 +40,10 @@ def getUserInput():
 
     return(number_of_cores, qubits_per_core, number_of_qubits, number_of_gates, probabilities) # returns tuple
 
-def bitReverse(i):
+def bitReverse(i, b):
     j = "" # initialize reversed string
-    original = bin(i).replace("0b", "") # convert decimal to binary
+    original = format(i, f"0{b}b") # convert from decimal to binary with specified bit string length
+
     # iterate through digits in reverse and add to reversed string
     for digit in reversed(original):
         j += digit
@@ -53,6 +56,10 @@ def intToList(i):
         my_list.append(number)
     return my_list
 
+def findCore(dictionary, desired_value):
+    for key, number in dictionary.items():
+        if desired_value in number:
+            return key
 
 def generator():
     user_input = getUserInput()
@@ -62,13 +69,29 @@ def generator():
     gates = user_input[3]
     probs = user_input[4]
 
-    # convert number of gates to list of n-gates
-    gate_list = intToList(len(probs))
+    # number of bits to perform bit reversal on depends on the amount of cores
+    bits = m.log(cores, 2)
+    bits = m.ceil(bits)
 
-    # list of 1, 2 ... n-qubit gates; probability of each; size of final list which totals to the amount of gates
-    random_size_gate_list = random.choice(gate_list, p = probs, size = (gates)).tolist()
+    gate_list = intToList(len(probs)) # convert number of gates to list of n-qubit gates
+
+    random_size_gate_list = random.choice(gate_list, p = probs, size = (gates)).tolist() # list of 1, 2 ... n-qubit gates; probability of each; size of final list which is total amount of gates
 
     with open("samples/test_circuit.txt", "w") as test_circuit:
+        mapper = {} # maps cores to qubits
+        counter = qpc # helper variable for separating sets of qubits
+        qubit_list = [] # list for qubits in current core
+
+        for core in range(cores):
+            for qubit in range(counter - qpc, counter):
+                qubit_list.append(qubit)
+
+            mapper[core] = qubit_list
+
+            # reset parameters for next set of qubits
+            counter += qpc
+            qubit_list = []
+
         current_slice = [] # tracks qubits used in current time slice
 
         for gate in random_size_gate_list:
@@ -76,20 +99,36 @@ def generator():
 
             track_gate = [] # tracks qubits within a gate
 
-            # generates random qubit within specified size of gate
-            for i in range(1, gate + 1):
-                def rng(n, qrand, q):
-                    # makes sure all numbers within a single gate are random
-                    while True:
-                        number = str(random.randint(n))
-                        if number not in qrand:
-                            qrand.append(number)
-                            q.append(number)
-                            return number
+            # bit reversal if 2-qubit gate
+            if gate == 2:
+                source_qubit = random.randint(qubits)
+                corresponding_core = findCore(mapper, source_qubit)
+
+                reversed_core = bitReverse(corresponding_core, bits)
+
+                # makes sure qubits are not repeated within the same 2-qubit gate
+                while True:
+                    destination_qubit = np.random.choice(mapper[reversed_core])
+                    if destination_qubit != source_qubit:
+                        break
+
+                string += f"{source_qubit} {destination_qubit} "
             
-                # generate qubit and add to gate
-                generated_qubit = rng(qubits, track_gate, current_slice)
-                string += f"{generated_qubit} "
+            else:
+                # generates random qubit within specified size of gate
+                for i in range(1, gate + 1):
+                    def rng(n, qrand, q):
+                        # makes sure all numbers within a single gate are random
+                        while True:
+                            number = str(random.randint(n))
+                            if number not in qrand:
+                                qrand.append(number)
+                                q.append(number)
+                                return number
+                
+                    # generate qubit and add to gate
+                    generated_qubit = rng(qubits, track_gate, current_slice)
+                    string += f"{generated_qubit} "
 
             string = string[:-1] + ")"
 
