@@ -2,7 +2,7 @@ import numpy as np
 import math as m
 from numpy import random
 
-# take user input for qubits, gates, probabilities
+# take user input for cores, qubits per core, qubits, gates, probabilities, and file name
 def getUserInput():
     # read and extract parameters from architecture.txt
     arch = open("samples/architecture.txt", "r")
@@ -38,7 +38,12 @@ def getUserInput():
         
         probabilities.append(n_qubit_gate_prob) # add probability to list
 
-    return(number_of_cores, qubits_per_core, number_of_qubits, number_of_gates, probabilities) # returns tuple
+    # ask user for the name of the file the generated circuit will be outputted on
+    file_name = ""
+    while ".txt" not in file_name:
+        file_name = input("Test circuit file name (include .txt): ")
+
+    return(number_of_cores, qubits_per_core, number_of_qubits, number_of_gates, probabilities, file_name) # returns tuple
 
 def bitReverse(i, b):
     j = "" # initialize reversed string
@@ -68,6 +73,7 @@ def generator():
     qubits = user_input[2]
     gates = user_input[3]
     probs = user_input[4]
+    file = user_input[5]
 
     # number of bits to perform bit reversal on depends on the amount of cores
     bits = m.log(cores, 2)
@@ -77,7 +83,7 @@ def generator():
 
     random_size_gate_list = random.choice(gate_list, p = probs, size = (gates)).tolist() # list of 1, 2 ... n-qubit gates; probability of each; size of final list which is total amount of gates
 
-    with open("samples/test_circuit.txt", "w") as test_circuit:
+    with open(f"samples/{file}", "w") as test_circuit:
         mapper = {} # maps cores to qubits
         counter = qpc # helper variable for separating sets of qubits
         qubit_list = [] # list for qubits in current core
@@ -144,14 +150,6 @@ def generator():
                 current_slice = []
 
             test_circuit.write(string)
-        
-
-def main():
-    # user_input = getUserInput()
-    # print(user_input)
-    # tingamus = bitReverse(8)
-    # print(tingamus)
-    generator()
 
 if __name__ == "__main__":
-    main()
+    generator()
