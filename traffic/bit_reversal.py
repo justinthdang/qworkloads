@@ -84,18 +84,21 @@ def generator():
     random_size_gate_list = random.choice(gate_list, p = probs, size = (gates)).tolist() # list of 1, 2 ... n-qubit gates; probability of each; size of final list which is total amount of gates
 
     with open(f"samples/{file}", "w") as test_circuit:
-        mapper = {} # maps cores to qubits
-        counter = qpc # helper variable for separating sets of qubits
+        mapper = {} # maps qubits to cores
         qubit_list = [] # list for qubits in current core
 
         for core in range(cores):
-            for qubit in range(counter - qpc, counter):
-                qubit_list.append(qubit)
+            mod = core
 
+            # adds qubits to a list in a certain multiple that satisfies the qubits per core
+            while True:
+                qubit_list.append(mod)
+                mod += int(qubits / qpc)
+                if mod >= qubits:
+                    break
+            
+            # map and reset for next set of qubits
             mapper[core] = qubit_list
-
-            # reset parameters for next set of qubits
-            counter += qpc
             qubit_list = []
 
         current_slice = [] # tracks qubits used in current time slice
