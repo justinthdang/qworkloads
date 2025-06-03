@@ -16,6 +16,12 @@ def getUserInput():
     number_of_qubits = qubits_per_core * number_of_cores
     number_of_gates = int(input("Number of gates: "))
 
+    usable_qubits = number_of_qubits # initializes variable for while loop
+
+    # qcomm simulator seems to only simulate less than 80% of the total qubits declared
+    while usable_qubits >= 0.8 * number_of_qubits:
+        usable_qubits = int(input("Number of logical qubits (must be less than 80% of the total number of qubits): "))
+
     probabilities = [] # initialize list for storing probabilities
     total_prob = 0 # initialize total probability tracker
     n = 1 # initialize count for n-qubits
@@ -43,7 +49,7 @@ def getUserInput():
     while ".txt" not in file_name:
         file_name = input("Test circuit file name (include .txt): ")
 
-    return(number_of_cores, qubits_per_core, number_of_qubits, number_of_gates, probabilities, file_name) # returns tuple
+    return(number_of_cores, qubits_per_core, number_of_qubits, number_of_gates, usable_qubits, probabilities, file_name) # returns tuple
 
 def bitReverse(i, b):
     j = "" # initialize reversed string
@@ -72,8 +78,9 @@ def generator():
     qpc = user_input[1]
     qubits = user_input[2]
     gates = user_input[3]
-    probs = user_input[4]
-    file = user_input[5]
+    usable = user_input[4]
+    probs = user_input[5]
+    file = user_input[6]
 
     # number of bits to perform bit reversal on depends on the amount of cores
     bits = m.log(cores, 2)
@@ -94,7 +101,7 @@ def generator():
             while True:
                 qubit_list.append(mod)
                 mod += int(qubits / qpc)
-                if mod >= qubits:
+                if mod >= usable:
                     break
             
             # map and reset for next set of qubits
@@ -110,7 +117,7 @@ def generator():
 
             # bit reversal if 2-qubit gate
             if gate == 2:
-                source_qubit = random.randint(qubits)
+                source_qubit = random.randint(usable)
                 corresponding_core = findCore(mapper, source_qubit)
 
                 reversed_core = bitReverse(corresponding_core, bits)
@@ -136,10 +143,10 @@ def generator():
                                 return number
                 
                     # generate qubit and add to gate
-                    generated_qubit = rng(qubits, track_gate, current_slice)
+                    generated_qubit = rng(usable, track_gate, current_slice)
                     string += f"{generated_qubit} "
 
-            string = string[:-1] + ")"
+            string = string[:-1] + ") "
 
             # check if any numbers have been repeated
             repeating = [element for element in set(current_slice) if current_slice.count(element) > 1]
