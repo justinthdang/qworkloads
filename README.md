@@ -3,7 +3,7 @@ Qcomm is a C++ simulation framework for quantum circuit communication and mappin
 
 All core functionality, architecture, and simulation logic of this repository was created by the original authors of Qcomm. The original repository can be found [here](https://github.com/mpalesi/qcomm).
 
-This cloned repository simply fixes some missing headers, reorganizes the C++ files into a src folder, and provides clear instructions on how to get the tool up and running.
+This cloned repository simply fixes some missing headers, reorganizes the C++ files into a src folder, and provides clear instructions on how to get the tool up and running. Additionally, this repository includes a new working random circuit generator script for 2-qubit gates, as well as random circuit generating scripts for other synthetic NoC traffic patterns.
 
 If you use this tool in academic work, please consider citing the original authors and publications associated with Qcomm.
 
@@ -13,7 +13,7 @@ To rebuild the simulator, navigate to the project directory and execute the foll
 #### `make`
 
 ## Customizing the Circuit, Architecture, and Parameters
-To generate a random circuit (optional), navigate to the project directory and execute the following:
+To generate a random circuit (optional), navigate to the traffic folder under the project directory and execute the following:
 #### `./rcg <l-qubits> <m-gates> <1-qubit-gate-probability 2-qubit-gate-probability ... n-qubit-gate-probability>`
 
 A list of inputs for the architecture and parameters text files can be found under section III of [this paper](https://arxiv.org/pdf/2405.16275).

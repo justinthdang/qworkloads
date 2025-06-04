@@ -128,7 +128,9 @@ def generator():
                     destination_qubit = np.random.choice(mapper[reversed_core])
                     if destination_qubit != source_qubit:
                         break
-
+                
+                current_slice.append(source_qubit)
+                current_slice.append(destination_qubit)
                 string += f"{source_qubit} {destination_qubit} "
             
             else:
@@ -137,7 +139,7 @@ def generator():
                     def rng(n, qrand, q):
                         # makes sure all numbers within a single gate are random
                         while True:
-                            number = str(random.randint(n))
+                            number = random.randint(n)
                             if number not in qrand:
                                 qrand.append(number)
                                 q.append(number)

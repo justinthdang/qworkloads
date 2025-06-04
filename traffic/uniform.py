@@ -85,7 +85,7 @@ def generator():
                 def rng(n, qrand, q):
                     # makes sure all numbers within a single gate are random                        
                     while True:
-                        number = str(random.randint(n))
+                        number = random.randint(n)
                         if number not in qrand:
                             qrand.append(number)
                             q.append(number)
