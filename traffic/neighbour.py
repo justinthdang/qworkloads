@@ -49,17 +49,64 @@ def getUserInput():
     while ".txt" not in file_name:
         file_name = input("Test circuit file name (include .txt): ")
 
-    return(number_of_cores, qubits_per_core, number_of_qubits, number_of_gates, usable_qubits, probabilities, file_name) # returns tuple
+    return(number_of_cores, qubits_per_core, number_of_qubits, number_of_gates, usable_qubits, probabilities, file_name, mesh_x, mesh_y) # returns tuple
 
-def bitReverse(i, b):
-    j = "" # initialize reversed string
-    original = format(i, f"0{b}b") # convert from decimal to binary with specified bit string length
+def adjacentCore(i, width, length):
+    noc_array = []
+    count = width # helper variable
+    
+    # creates 2D array of cores in sequential order in rows then columns
+    for y in range(length):
+        noc_array.append([])
+        x = count - width
+        while x < count:
+            noc_array[y].append(x)
+            x += 1
+        count += width
 
-    # iterate through digits in reverse and add to reversed string
-    for digit in reversed(original):
-        j += digit
-    reverse = int(j, 2) # convert binary to decimal
-    return reverse
+    row_number = 0 # track row index
+
+    # determines the coordinate of the core
+    for row in noc_array:
+        column_number = 0 # track column index
+        for column in row:
+            if column == i:
+                source_coord = [row_number, column_number]
+                break
+            column_number += 1
+        row_number += 1
+
+    # determines destination (adjacent) coordinate
+    while True:
+        destination_coord = source_coord.copy() # so that when modifying destination coordinate it doesn't point to the source coordinate
+
+        # randomly generates addition or subtraction operation to column or row number of source coordinate
+        add_or_subtract = random.randint(0, 2)
+        row_or_column = random.randint(0, 2)
+        
+        if add_or_subtract == 0:
+            # add to row number
+            if row_or_column == 0:
+                destination_coord[0] += 1
+            # add to column number
+            if row_or_column == 1:
+                destination_coord[1] += 1
+
+        if add_or_subtract == 1:
+            # subtract to row number
+            if row_or_column == 0:
+                destination_coord[0] -= 1
+            # substract to column number
+            if row_or_column == 1:
+                destination_coord[1] -= 1
+
+        # breaks the loop if the generated coordinates is within bounds of the array
+        if 0 <= destination_coord[0] < len(noc_array) and 0 <= destination_coord[1] < len(noc_array[0]):
+            break
+    
+    j = noc_array[destination_coord[0]][destination_coord[1]]
+
+    return j
 
 def intToList(i):
     my_list = []
@@ -81,6 +128,8 @@ def generator():
     usable = user_input[4]
     probs = user_input[5]
     file = user_input[6]
+    x = user_input[7]
+    y = user_input[8]
 
     # number of bits to perform bit reversal on depends on the amount of cores
     bits = m.log(cores, 2)
@@ -118,11 +167,12 @@ def generator():
                 source_qubit = random.randint(usable)
                 corresponding_core = findCore(mapper, source_qubit)
 
-                reversed_core = bitReverse(corresponding_core, bits)
+
+                adjacent_core = adjacentCore(corresponding_core, x, y)
 
                 # makes sure qubits are not repeated within the same 2-qubit gate
                 while True:
-                    destination_qubit = np.random.choice(mapper[reversed_core])
+                    destination_qubit = np.random.choice(mapper[adjacent_core])
                     if destination_qubit != source_qubit:
                         break
                 
