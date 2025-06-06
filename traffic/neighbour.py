@@ -139,7 +139,7 @@ def generator():
 
     random_size_gate_list = random.choice(gate_list, p = probs, size = (gates)).tolist() # list of 1, 2 ... n-qubit gates; probability of each; size of final list which is total amount of gates
 
-    with open(f"samples/bit_reversal/{file}", "w") as test_circuit:
+    with open(f"samples/neighbour/{file}", "w") as test_circuit:
         mapper = {} # maps qubits to cores
         qubit_list = [] # list for qubits in current core
 

@@ -7,7 +7,9 @@ All core functionality, architecture, and simulation logic of this repository wa
 
 ## Rebuilding Simulator
 To rebuild the simulator, navigate to the project directory and execute the following:
+
 `make clean`
+
 `make`
 
 ## Customizing the Circuit, Architecture, and Parameters
@@ -17,6 +19,7 @@ A list of inputs for the architecture.txt and parameters.txt files can be found 
 
 ## Running the Simulator
 To run the simulator, execute the following:
+
 `./qcomm -c <path to circuit text file> -a <path to architecture text file> -p <path to parameters text file>`
 
 ## Citations
