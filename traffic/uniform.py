@@ -75,7 +75,10 @@ def generator():
     with open(f"samples/{file}", "w") as test_circuit:
         current_slice = [] # tracks qubits used in current time slice
 
+        gate_index = 0
+
         for gate in random_size_gate_list:
+
             string = "("
 
             track_gate = [] # tracks qubits within a gate
@@ -98,16 +101,17 @@ def generator():
             string = string[:-1] + ") "
 
             # check if any numbers have been repeated
-            repeating = [element for element in set(current_slice) if current_slice.count(element) > 1]
+            repeating = [element for element in set(current_slice) if current_slice.count(element) > 1]    
 
-            # if a qubit is repeated then create a new line before the current gate
-            if repeating:
+            # new line if qubit is repeating or the random number generated is greater than 0.5
+            if repeating or (random.random() > 0.5 and gate_index != 0):
                 index = string.rfind("(")
                 string = string[:index] + "\n(" + string[index + 1:]
 
                 # reset qubit tracker and current slice
                 current_slice = []
 
+            gate_index += 1
             test_circuit.write(string)
 
 if __name__ == "__main__":
