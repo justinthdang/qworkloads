@@ -17,10 +17,8 @@ def getUserInput():
 
     usable_qubits = number_of_qubits # initializes variable for while loop
 
-    # qcomm simulator seems to only simulate less than 80% of the total qubits declared
-    overhead = m.ceil(0.8 * number_of_qubits)
-    while usable_qubits >= overhead:
-        usable_qubits = int(input(f"Number of logical qubits (must be <80% or <{overhead} qubits): "))
+    while usable_qubits >= number_of_qubits:
+        usable_qubits = int(input(f"Number of logical qubits (must be <{number_of_qubits} qubits): "))
 
     probabilities = [] # initialize list for storing probabilities
     total_prob = 0 # initialize total probability tracker
