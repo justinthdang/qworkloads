@@ -13,7 +13,7 @@ To rebuild the simulator, navigate to the project directory and execute the foll
 `make`
 
 ## Customizing the Circuit, Architecture, and Parameters
-To generate a random circuit, navigate to the traffic folder and run the script with your desired traffic pattern in your IDE. The script reads the amount of cores, qubits per core, and hence, qubits, defined in the architecture.txt file within the samples folder. It also prompts for the amount of gates desired, the probabilities of each n-qubit gate, the amount of usable qubits (typically below 80% to avoid multi-core communication conflicts), and a .txt file to write the generated circuit into.
+To generate a random circuit, navigate to the traffic folder and run the script with your desired traffic pattern in your IDE. The script reads the amount of cores, qubits per core, and hence, qubits, defined in the architecture.txt file within the samples folder. It also prompts for the amount of gates desired, the probabilities of each n-qubit gate, the amount of usable qubits, and a .txt file to write the generated circuit into.
 
 A list of inputs for the architecture.txt and parameters.txt files can be found under section III of [this paper](https://arxiv.org/pdf/2405.16275).
 
