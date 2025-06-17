@@ -2,6 +2,7 @@ from collections import defaultdict
 import pandas as pd
 
 def converter():
+  # change path to txt file here
   with open("data.txt", "r") as f:
     data = f.read()
     blocks = data.split("*** Circuit ***") # splits the data into a list of blocks for each unique circuit
