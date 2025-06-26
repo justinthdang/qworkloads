@@ -3,7 +3,7 @@ import pandas as pd
 
 def converter():
   # change path to txt file here
-  with open("data.txt", "r") as f:
+  with open("data3.txt", "r") as f:
     data = f.read()
     blocks = data.split("*** Circuit ***") # splits the data into a list of blocks for each unique circuit
 
@@ -26,15 +26,15 @@ def converter():
       i = 0
 
     # call your dataframes here
-    circuit2575, circuit5050, circuit7525 = ltmPorts(stats)
+    circuit = ltmPorts(stats)
     link_width = linkWidth(stats)
     noc_clock = nocClock(stats)
 
     # add your dataframes to df_list
-    df_list = [circuit2575, circuit5050, circuit7525, link_width, noc_clock]
+    df_list = [circuit, link_width, noc_clock]
     plain_text = toPlainText(df_list)
   
-  with open("data.csv", "w") as f:
+  with open("data3.csv", "w") as f:
     f.write(plain_text)
 
 # generates default table of each statistic
@@ -70,7 +70,7 @@ to analyze another parameter, add a function similar to the ones below:
   - convert the dictionary to a dataframe and return it
 '''
 
-def ltmPorts(stats):
+def ltmPorts3(stats):
   table1 = buildTable(stats, 0, 4)
   table2 = buildTable(stats, 5, 9)
   table3 = buildTable(stats, 10, 14)
@@ -83,15 +83,22 @@ def ltmPorts(stats):
   df3 = pd.DataFrame(new_table3)
   return df1, df2, df3
 
+def ltmPorts(stats):
+  table = buildTable(stats, 0, 4)
+  param = {"LTM Ports": [1, 2, 3, 4, 5]}
+  new_table = {**param, **table}
+  df = pd.DataFrame(new_table)
+  return df
+
 def linkWidth(stats):
-  table = buildTable(stats, 15, 19)
+  table = buildTable(stats, 5, 9)
   param = {"Link width (bits)": [2, 4, 6, 8, 10]}
   new_table = {**param, **table}
   df = pd.DataFrame(new_table)
   return df
 
 def nocClock(stats):
-  table = buildTable(stats, 20, 29)
+  table = buildTable(stats, 10, 19)
   param = {"NoC Clock Speed (MHz)" : [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]}
   new_table = {**param, **table}
   df = pd.DataFrame(new_table)
