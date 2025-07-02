@@ -1,15 +1,15 @@
 from qiskit import QuantumCircuit
 import numpy as np
 
+# test function to generate amplitude encoder in Qiskit
 def test():
-    state = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+    state = np.array([1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8])
     norm = np.linalg.norm(state)
     normalized_state = state / norm
     num_qubits = 4
     circ = QuantumCircuit(num_qubits)
     circ.initialize(normalized_state, [0, 1, 2, 3])
     print(circ.decompose(reps = 8))
-    
 
 # angle encoder following Qiskit's ZFeatureMap circuit implementation
 def angleEncoderZ(reps):
@@ -50,6 +50,6 @@ def angleEncoderZZ(reps):
     print(circuit)
 
 if __name__ == "__main__":
-    test()
-    # angleEncoderZ(1)
-    # angleEncoderZZ(1)
+    # test()
+    angleEncoderZ(1)
+    angleEncoderZZ(1)
