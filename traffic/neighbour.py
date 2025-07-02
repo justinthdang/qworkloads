@@ -5,7 +5,7 @@ from numpy import random
 # take user input for cores, qubits per core, qubits, gates, probabilities, and file name
 def getUserInput():
     # read and extract parameters from architecture.txt
-    arch = open("samples/architecture.txt", "r")
+    arch = open("architecture.txt", "r")
     read_arch = arch.readlines()
     mesh_x = int(read_arch[0].strip("mesh_x "))
     mesh_y = int(read_arch[1].strip("mesh_y "))
@@ -135,9 +135,9 @@ def generator():
 
     gate_list = intToList(len(probs)) # convert number of gates to list of n-qubit gates
 
-    random_size_gate_list = random.choice(gate_list, p = probs, size = (gates)).tolist() # list of 1, 2 ... n-qubit gates; probability of each; size of final list which is total amount of gates
+    random_size_gate_list = np.random.choice(gate_list, p = probs, size = (gates)).tolist() # list of 1, 2 ... n-qubit gates; probability of each; size of final list which is total amount of gates
 
-    with open(f"samples/neighbour/{file}", "w") as test_circuit:
+    with open(file, "w") as test_circuit:
         mapper = {} # maps qubits to cores
         qubit_list = [] # list for qubits in current core
 
