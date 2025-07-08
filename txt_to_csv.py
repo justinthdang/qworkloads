@@ -3,7 +3,7 @@ import pandas as pd
 
 def converter():
   # change path to txt file here
-  with open("data3.txt", "r") as f:
+  with open("data.txt", "r") as f:
     data = f.read()
     blocks = data.split("*** Circuit ***") # splits the data into a list of blocks for each unique circuit
 
@@ -44,19 +44,19 @@ def converter():
 # generates table for given variable parameter and its data block indexes
 def buildTable(stats, start, end, name):
   table = {
-      name : stats[0][start:end + 1],
-      "Communication time (s)": stats[1][start:end + 1],
-      "EPR pair generation time (s)": stats[2][start:end + 1],
-      "EPR pair distribution time (s)": stats[3][start:end + 1],
-      "Pre-processing time (s)": stats[4][start:end + 1],
-      "Classical transfer time (s)": stats[5][start:end + 1],
-      "Post-processing time (s)": stats[6][start:end + 1],
-      "Computation time (s)": stats[7][start:end + 1],
-      "Fetch time (s)": stats[8][start:end + 1],
-      "Decode time (s)": stats[9][start:end + 1],
-      "Dispatch time (s)": stats[10][start:end + 1],
-      "Execution time (s)": stats[11][start:end + 1],
-      "Coherence (%)": stats[12][start:end + 1]
+      name : "",
+      "Communication time (s)": stats[0][start:end + 1],
+      "EPR pair generation time (s)": stats[1][start:end + 1],
+      "EPR pair distribution time (s)": stats[2][start:end + 1],
+      "Pre-processing time (s)": stats[3][start:end + 1],
+      "Classical transfer time (s)": stats[4][start:end + 1],
+      "Post-processing time (s)": stats[5][start:end + 1],
+      "Computation time (s)": stats[6][start:end + 1],
+      "Fetch time (s)": stats[7][start:end + 1],
+      "Decode time (s)": stats[8][start:end + 1],
+      "Dispatch time (s)": stats[9][start:end + 1],
+      "Execution time (s)": stats[10][start:end + 1],
+      "Coherence (%)": stats[11][start:end + 1]
   }
   
   df = pd.DataFrame(table)
