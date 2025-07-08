@@ -19,7 +19,13 @@ def converter():
 
       for statistic in block:
         colon_index = statistic.find(":")
-        statistic = statistic[colon_index + 1:]
+        open_bracket_index = statistic.find(" (", colon_index, len(statistic))
+
+        if open_bracket_index == -1:
+          statistic = statistic[colon_index + 1:]
+        else:
+          statistic = statistic[colon_index + 1:open_bracket_index]
+          
         stats[i].append(statistic)
         i += 1
 
