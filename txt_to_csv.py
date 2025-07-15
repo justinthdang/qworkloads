@@ -43,6 +43,7 @@ def converter():
         table = buildTable(stats, start, end, name)
         df_list.append(table)
   
+  # change path to csv file here
   with open("data.csv", "w") as f:
     plain_text = toPlainText(df_list)
     f.write(plain_text)
