@@ -5,13 +5,13 @@ from numpy import random
 # take user input for cores, qubits per core, qubits, gates, probabilities, and file name
 def getUserInput():
     # read and extract parameters from architecture.txt
-    arch = open("architecture.txt", "r")
+    arch = open("architecture.yaml", "r")
     read_arch = arch.readlines()
-    mesh_x = int(read_arch[0].strip("mesh_x "))
-    mesh_y = int(read_arch[1].strip("mesh_y "))
+    mesh_x = int(read_arch[0].strip("mesh_x: "))
+    mesh_y = int(read_arch[1].strip("mesh_y: "))
 
     number_of_cores = mesh_x * mesh_y
-    qubits_per_core = int(read_arch[3].strip("qubits_per_core "))
+    qubits_per_core = int(read_arch[3].strip("qubits_per_core: "))
     number_of_qubits = qubits_per_core * number_of_cores
     number_of_gates = int(input("Number of gates: "))
 
