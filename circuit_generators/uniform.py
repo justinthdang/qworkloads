@@ -4,7 +4,7 @@ from numpy import random
 # take user input for cores, qubits per core, qubits, gates, probabilities, and file name
 def getUserInput():
     # read and extract parameters from architecture.txt
-    arch = open("architecture.txt", "r")
+    arch = open("architecture.yaml", "r")
     read_arch = arch.readlines()
     print(read_arch)
     mesh_x = int(read_arch[0].strip("mesh_x: "))
@@ -75,8 +75,11 @@ def generator():
         gate_index = 0
 
         for gate in random_size_gate_list:
-
-            string = "("
+            
+            if gate == 1:
+                string = "G1("
+            elif gate == 2:
+                string = "G2("
 
             track_gate = [] # tracks qubits within a gate
             
@@ -102,8 +105,8 @@ def generator():
 
             # new line if qubit is repeating or the random number generated is greater than 0.5
             if repeating or (random.random() > 0.5 and gate_index != 0):
-                index = string.rfind("(")
-                string = string[:index] + "\n(" + string[index + 1:]
+                index = string.rfind("G")
+                string = string[:index - 1] + f"\n" + string[index:]
 
                 # reset qubit tracker and current slice
                 current_slice = []
