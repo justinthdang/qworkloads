@@ -2,4 +2,6 @@ obj/
 src/
 qcomm
 rcg
+architecture.yaml
+parameters.yaml
 qasm2qcomm.py
