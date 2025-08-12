@@ -5,8 +5,6 @@ The scripts include uniform, bit-reversal, and neighbour traffics, as well as an
 
 The full collection and rest of these generators can be accessed from [this joint research repository](https://github.com/Sadit-J/Qcomm-Traffic) maintained with my fellow research peers. Feel free to check out the results and findings from our research through [this paper]() we produced (currently in progress)!
 
-All core functionality, architecture, and simulation logic of this repository was created by the original authors of Qcomm. If you use this tool in academic work, please consider citing the original authors and publications associated with Qcomm.
-
 ## Generating and Simulating Circuits
 To generate a circuit, run the desired script found under the circuit_generators folder. This will output a .txt file of the circuit.
 
